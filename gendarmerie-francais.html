@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concours Gendarmerie CI — Français</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vert: #1a4731;
+    --vert-clair: #2d6b4a;
+    --or: #c8a84b;
+    --or-clair: #e8c96b;
+    --blanc: #f5f2ec;
+    --gris: #8a8880;
+    --rouge: #c0392b;
+    --bleu: #1a3a5c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--vert);
+    color: var(--blanc);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0d2b1d 0%, #1a4731 60%, #0d2b1d 100%);
+    border-bottom: 3px solid var(--or);
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 20px,
+      rgba(200,168,75,0.04) 20px, rgba(200,168,75,0.04) 21px
+    );
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--or);
+    color: var(--vert);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 900;
+    color: var(--blanc);
+    line-height: 1.2;
+  }
+  .header h1 span { color: var(--or); }
+  .header p {
+    color: rgba(245,242,236,0.6);
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  /* NAV MODULES */
+  .nav-modules {
+    display: flex;
+    gap: 6px;
+    padding: 16px 16px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-modules::-webkit-scrollbar { display: none; }
+
+  .mod-btn {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(200,168,75,0.25);
+    color: rgba(245,242,236,0.7);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .mod-btn:hover { border-color: var(--or); color: var(--or); }
+  .mod-btn.active {
+    background: var(--or);
+    color: var(--vert);
+    border-color: var(--or);
+    font-weight: 700;
+  }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    padding: 12px 16px 0;
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: rgba(245,242,236,0.5);
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--or);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+
+  /* MAIN CARD */
+  .card {
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(200,168,75,0.2);
+    border-radius: 12px;
+    margin: 14px 16px;
+    padding: 20px;
+  }
+
+  .exercise-type {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--or);
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .exercise-type::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(200,168,75,0.2);
+  }
+
+  .exercise-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--blanc);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .exercise-instruction {
+    font-size: 13px;
+    color: rgba(245,242,236,0.65);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  /* TEXT DISPLAY */
+  .text-block {
+    background: rgba(0,0,0,0.25);
+    border-left: 3px solid var(--or);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(245,242,236,0.9);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  /* QUESTIONS */
+  .question-block {
+    margin-bottom: 18px;
+  }
+  .question-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blanc);
+    margin-bottom: 8px;
+  }
+  .question-num {
+    display: inline-block;
+    background: var(--or);
+    color: var(--vert);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--blanc);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+  }
+  .option:hover { border-color: var(--or); background: rgba(200,168,75,0.1); }
+  .option.correct { border-color: #2ecc71; background: rgba(46,204,113,0.15); }
+  .option.wrong { border-color: var(--rouge); background: rgba(192,57,43,0.15); }
+  .option.disabled { cursor: default; }
+  .option-letter {
+    width: 24px; height: 24px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+  }
+  .option.correct .option-letter { background: #2ecc71; color: #0d3320; }
+  .option.wrong .option-letter { background: var(--rouge); color: white; }
+
+  /* TEXT INPUT */
+  textarea {
+    width: 100%;
+    background: rgba(0,0,0,0.25);
+    border: 1.5px solid rgba(200,168,75,0.3);
+    border-radius: 8px;
+    color: var(--blanc);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+    padding: 12px;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  textarea:focus { border-color: var(--or); }
+  textarea::placeholder { color: rgba(245,242,236,0.3); }
+
+  /* BUTTONS */
+  .btn {
+    border: none; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600; cursor: pointer;
+    transition: all 0.2s; font-size: 13px;
+  }
+  .btn-primary {
+    background: var(--or);
+    color: var(--vert);
+    padding: 12px 24px;
+    width: 100%;
+    margin-top: 12px;
+    letter-spacing: 0.5px;
+  }
+  .btn-primary:hover { background: var(--or-clair); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.1);
+    color: var(--blanc);
+    padding: 10px 20px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.15); }
+
+  /* FEEDBACK */
+  .feedback {
+    display: none;
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .feedback.correct-fb {
+    background: rgba(46,204,113,0.1);
+    border: 1px solid rgba(46,204,113,0.3);
+    color: #a8f0c6;
+    display: block;
+  }
+  .feedback.wrong-fb {
+    background: rgba(192,57,43,0.1);
+    border: 1px solid rgba(192,57,43,0.3);
+    color: #f0a8a8;
+    display: block;
+  }
+  .feedback.info-fb {
+    background: rgba(200,168,75,0.1);
+    border: 1px solid rgba(200,168,75,0.3);
+    color: #e8d090;
+    display: block;
+  }
+  .feedback strong { display: block; margin-bottom: 4px; }
+
+  /* FILL IN BLANK */
+  .fill-blank {
+    background: rgba(0,0,0,0.25);
+    border: 1.5px solid rgba(200,168,75,0.3);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 2.2;
+    color: rgba(245,242,236,0.9);
+    margin-bottom: 12px;
+  }
+  .blank-input {
+    display: inline-block;
+    width: 100px;
+    background: rgba(200,168,75,0.15);
+    border: none;
+    border-bottom: 2px solid var(--or);
+    color: var(--or-clair);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    padding: 2px 6px;
+    outline: none;
+    margin: 0 4px;
+  }
+  .blank-input.correct-input { border-color: #2ecc71; color: #2ecc71; }
+  .blank-input.wrong-input { border-color: var(--rouge); color: #e07070; }
+
+  /* SCORE */
+  .score-box {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    border: 1.5px solid rgba(200,168,75,0.3);
+    margin: 14px 16px;
+  }
+  .score-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--or);
+    line-height: 1;
+  }
+  .score-label { font-size: 12px; color: rgba(245,242,236,0.5); margin-top: 4px; }
+  .score-msg { font-size: 14px; color: var(--blanc); margin-top: 12px; font-weight: 500; }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px 24px;
+    gap: 10px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* CONJUGAISON TABLE */
+  .conj-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14px;
+    font-size: 13px;
+  }
+  .conj-table th {
+    background: rgba(200,168,75,0.2);
+    color: var(--or);
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .conj-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: rgba(245,242,236,0.85);
+  }
+  .conj-table tr:hover td { background: rgba(255,255,255,0.04); }
+
+  .hint {
+    font-size: 11px;
+    color: rgba(245,242,236,0.4);
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  .medal { font-size: 40px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">🇨🇮 Concours Gendarmerie CI</div>
+  <h1>Préparation <span>Français</span></h1>
+  <p>Entraîne-toi jusqu'à la réussite — Concours 2026</p>
+</div>
+
+<!-- Nav modules -->
+<div class="nav-modules">
+  <button class="mod-btn active" onclick="showModule(0)">📖 Compréhension</button>
+  <button class="mod-btn" onclick="showModule(1)">✏️ Grammaire</button>
+  <button class="mod-btn" onclick="showModule(2)">🔤 Orthographe</button>
+  <button class="mod-btn" onclick="showModule(3)">📝 Rédaction</button>
+  <button class="mod-btn" onclick="showModule(4)">🎧 Dictée</button>
+  <button class="mod-btn" onclick="showModule(5)">🔡 Ponctuation</button>
+  <button class="mod-btn" onclick="showModule(6)">🏆 Score</button>
+</div>
+
+<!-- Progress -->
+<div class="progress-bar-wrap">
+  <div class="progress-info">
+    <span id="progress-label">Module 1 / 4</span>
+    <span id="score-display">Score : 0 pt</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:25%"></div></div>
+</div>
+
+<!-- ===================== MODULE 1 : COMPREHENSION ===================== -->
+<div class="section active" id="module-0">
+  <div class="card">
+    <div class="exercise-type">📖 Exercice 1 — Compréhension de texte</div>
+    <div class="exercise-title">Lisez attentivement le texte</div>
+    <div class="exercise-instruction">Répondez ensuite aux questions en choisissant la bonne réponse.</div>
+
+    <div class="text-block">
+      La Gendarmerie Nationale de Côte d'Ivoire est une force armée à vocation militaire qui assure la sécurité publique dans les zones rurales et périurbaines. Elle est chargée de missions de police judiciaire, c'est-à-dire qu'elle enquête sur les crimes et les délits. Par ailleurs, elle exerce des fonctions de police administrative : maintien de l'ordre, surveillance des frontières et des axes routiers. Le gendarme est donc un soldat et un agent de l'État au service des citoyens, soumis à une discipline stricte et à un code d'honneur exigeant.
+    </div>
+
+    <!-- Q1 -->
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">1</span> Dans quelles zones la Gendarmerie assure-t-elle la sécurité ?</div>
+      <div class="options" id="q1-opts">
+        <button class="option" onclick="checkMCQ('q1', 'A', 'B')"><span class="option-letter">A</span> En zones urbaines seulement</button>
+        <button class="option" onclick="checkMCQ('q1', 'B', 'B')"><span class="option-letter">B</span> En zones rurales et périurbaines</button>
+        <button class="option" onclick="checkMCQ('q1', 'C', 'B')"><span class="option-letter">C</span> Dans la capitale uniquement</button>
+        <button class="option" onclick="checkMCQ('q1', 'D', 'B')"><span class="option-letter">D</span> Sur les côtes maritimes</button>
+      </div>
+      <div class="feedback" id="q1-fb"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">2</span> Que signifie "police judiciaire" selon le texte ?</div>
+      <div class="options" id="q2-opts">
+        <button class="option" onclick="checkMCQ('q2', 'A', 'C')"><span class="option-letter">A</span> Surveiller les frontières</button>
+        <button class="option" onclick="checkMCQ('q2', 'B', 'C')"><span class="option-letter">B</span> Maintenir l'ordre public</button>
+        <button class="option" onclick="checkMCQ('q2', 'C', 'C')"><span class="option-letter">C</span> Enquêter sur les crimes et les délits</button>
+        <button class="option" onclick="checkMCQ('q2', 'D', 'C')"><span class="option-letter">D</span> Former les recrues militaires</button>
+      </div>
+      <div class="feedback" id="q2-fb"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">3</span> Quel mot dans le texte signifie "très sévère / difficile à respecter" ?</div>
+      <div class="options" id="q3-opts">
+        <button class="option" onclick="checkMCQ('q3', 'A', 'D')"><span class="option-letter">A</span> Judiciaire</button>
+        <button class="option" onclick="checkMCQ('q3', 'B', 'D')"><span class="option-letter">B</span> Administrative</button>
+        <button class="option" onclick="checkMCQ('q3', 'C', 'D')"><span class="option-letter">C</span> Périurbaine</button>
+        <button class="option" onclick="checkMCQ('q3', 'D', 'D')"><span class="option-letter">D</span> Exigeant</button>
+      </div>
+      <div class="feedback" id="q3-fb"></div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <div></div>
+    <button class="btn btn-primary" style="width:auto;padding:12px 28px" onclick="showModule(1)">Suivant →</button>
+  </div>
+</div>
+
+<!-- ===================== MODULE 2 : GRAMMAIRE ===================== -->
+<div class="section" id="module-1">
+  <div class="card">
+    <div class="exercise-type">✏️ Exercice 2 — Grammaire & Conjugaison</div>
+    <div class="exercise-title">Complétez avec la bonne forme verbale</div>
+    <div class="exercise-instruction">Conjuguez les verbes au temps indiqué entre parenthèses. Appuyez sur "Vérifier" quand vous avez terminé.</div>
+
+    <div class="fill-blank">
+      1. Le candidat <input class="blank-input" id="b1" placeholder="être" data-answer="était" data-verb="être / imparfait"> présent à l'heure. <span class="hint">(être — imparfait)</span>
+    </div>
+    <div class="fill-blank">
+      2. Nous <input class="blank-input" id="b2" placeholder="devoir" data-answer="devons" data-verb="devoir / présent"> respecter les règles. <span class="hint">(devoir — présent)</span>
+    </div>
+    <div class="fill-blank">
+      3. Les gendarmes <input class="blank-input" id="b3" placeholder="patrouiller" data-answer="patrouillaient" data-verb="patrouiller / imparfait"> chaque nuit. <span class="hint">(patrouiller — imparfait)</span>
+    </div>
+    <div class="fill-blank">
+      4. Je <input class="blank-input" id="b4" placeholder="réussir" data-answer="réussirai" data-verb="réussir / futur"> ce concours. <span class="hint">(réussir — futur simple)</span>
+    </div>
+    <div class="fill-blank">
+      5. Vous <input class="blank-input" id="b5" placeholder="prendre" data-answer="prendrez" data-verb="prendre / futur"> vos responsabilités. <span class="hint">(prendre — futur simple)</span>
+    </div>
+
+    <button class="btn btn-primary" onclick="checkFillBlanks()">✅ Vérifier mes réponses</button>
+    <div class="feedback" id="blanks-fb"></div>
+
+    <div style="margin-top:20px">
+      <div class="exercise-type" style="margin-top:0">📌 Rappel — Conjugaison utile</div>
+      <table class="conj-table">
+        <tr><th>Pronom</th><th>ÊTRE (imparfait)</th><th>AVOIR (futur)</th></tr>
+        <tr><td>Je</td><td>étais</td><td>aurai</td></tr>
+        <tr><td>Tu</td><td>étais</td><td>auras</td></tr>
+        <tr><td>Il/Elle</td><td>était</td><td>aura</td></tr>
+        <tr><td>Nous</td><td>étions</td><td>aurons</td></tr>
+        <tr><td>Vous</td><td>étiez</td><td>aurez</td></tr>
+        <tr><td>Ils/Elles</td><td>étaient</td><td>auront</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Q4 : accord adj -->
+  <div class="card">
+    <div class="exercise-type">✏️ Exercice 3 — Accord des adjectifs</div>
+    <div class="exercise-title">Choisissez la bonne orthographe</div>
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">4</span> "Les recrues sont _____ pour le service."</div>
+      <div class="options" id="q4-opts">
+        <button class="option" onclick="checkMCQ('q4','A','B', 'Le mot &quot;prêt&quot; s\'accorde avec le sujet féminin pluriel <strong>&quot;recrues&quot;</strong> → prêtes.')"><span class="option-letter">A</span> prêt</button>
+        <button class="option" onclick="checkMCQ('q4','B','B', 'Le mot &quot;prêt&quot; s\'accorde avec le sujet féminin pluriel <strong>&quot;recrues&quot;</strong> → prêtes.')"><span class="option-letter">B</span> prêtes</button>
+        <button class="option" onclick="checkMCQ('q4','C','B', 'Le mot &quot;prêt&quot; s\'accorde avec le sujet féminin pluriel <strong>&quot;recrues&quot;</strong> → prêtes.')"><span class="option-letter">C</span> prêts</button>
+        <button class="option" onclick="checkMCQ('q4','D','B', 'Le mot &quot;prêt&quot; s\'accorde avec le sujet féminin pluriel <strong>&quot;recrues&quot;</strong> → prêtes.')"><span class="option-letter">D</span> prête</button>
+      </div>
+      <div class="feedback" id="q4-fb"></div>
+    </div>
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">5</span> "Un travail _____ demande de la patience."</div>
+      <div class="options" id="q5-opts">
+        <button class="option" onclick="checkMCQ('q5','A','A','<strong>Bien fait</strong> est correct. &quot;Fait&quot; s\'accorde avec &quot;travail&quot; (masculin singulier).')"><span class="option-letter">A</span> bien fait</button>
+        <button class="option" onclick="checkMCQ('q5','B','A','<strong>Bien fait</strong> est correct. &quot;Fait&quot; s\'accorde avec &quot;travail&quot; (masculin singulier).')"><span class="option-letter">B</span> bien faite</button>
+        <button class="option" onclick="checkMCQ('q5','C','A','<strong>Bien fait</strong> est correct. &quot;Fait&quot; s\'accorde avec &quot;travail&quot; (masculin singulier).')"><span class="option-letter">C</span> bien faits</button>
+        <button class="option" onclick="checkMCQ('q5','D','A','<strong>Bien fait</strong> est correct. &quot;Fait&quot; s\'accorde avec &quot;travail&quot; (masculin singulier).')"><span class="option-letter">D</span> bien faites</button>
+      </div>
+      <div class="feedback" id="q5-fb"></div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="btn btn-secondary" onclick="showModule(0)">← Retour</button>
+    <button class="btn btn-primary" style="width:auto;padding:12px 28px" onclick="showModule(2)">Suivant →</button>
+  </div>
+</div>
+
+<!-- ===================== MODULE 3 : ORTHOGRAPHE ===================== -->
+<div class="section" id="module-2">
+  <div class="card">
+    <div class="exercise-type">🔤 Exercice 4 — Orthographe & Homophones</div>
+    <div class="exercise-title">Choisissez le bon mot</div>
+    <div class="exercise-instruction">Attention aux homophones et aux confusions fréquentes en français.</div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">6</span> "Il faut _____ confiance à ses supérieurs." (faire confiance / avoir)</div>
+      <div class="options" id="q6-opts">
+        <button class="option" onclick="checkMCQ('q6','A','B','<strong>Avoir confiance</strong> est la bonne expression. &quot;Faire confiance&quot; se dit &quot;faire confiance à&quot;, mais ici le verbe manquant est <strong>avoir</strong>.')"><span class="option-letter">A</span> faire</button>
+        <button class="option" onclick="checkMCQ('q6','B','B','<strong>Avoir confiance</strong> est la bonne expression. &quot;Faire confiance&quot; se dit &quot;faire confiance à&quot;, mais ici le verbe manquant est <strong>avoir</strong>.')"><span class="option-letter">B</span> avoir</button>
+        <button class="option" onclick="checkMCQ('q6','C','B','<strong>Avoir confiance</strong> est la bonne expression.')"><span class="option-letter">C</span> être</button>
+      </div>
+      <div class="feedback" id="q6-fb"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">7</span> Quelle phrase est correctement écrite ?</div>
+      <div class="options" id="q7-opts">
+        <button class="option" onclick="checkMCQ('q7','A','C','La phrase correcte est : <strong>&quot;Ses efforts ont été récompensés.&quot;</strong> — &quot;ces&quot; est un démonstratif, &quot;ses&quot; est un possessif. &quot;ont été récompensés&quot; = passé composé du verbe récompenser.')"><span class="option-letter">A</span> Ces effort on été récompenser.</button>
+        <button class="option" onclick="checkMCQ('q7','B','C','La phrase correcte est : <strong>&quot;Ses efforts ont été récompensés.&quot;</strong>')"><span class="option-letter">B</span> Ses éfforts on étés récompansés.</button>
+        <button class="option" onclick="checkMCQ('q7','C','C','✅ Parfait ! Tous les accords et l\'orthographe sont corrects.')"><span class="option-letter">C</span> Ses efforts ont été récompensés.</button>
+        <button class="option" onclick="checkMCQ('q7','D','C','La phrase correcte est : <strong>&quot;Ses efforts ont été récompensés.&quot;</strong>')"><span class="option-letter">D</span> Ces efforts ont été recompensés.</button>
+      </div>
+      <div class="feedback" id="q7-fb"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">8</span> "_____ candidats _____ présentés au concours."</div>
+      <div class="options" id="q8-opts">
+        <button class="option" onclick="checkMCQ('q8','A','C','La bonne réponse est <strong>Ces / se sont</strong>. &quot;Ces&quot; = démonstratif pluriel. &quot;Se sont présentés&quot; = verbe pronominal.')"><span class="option-letter">A</span> Ses / se sont</button>
+        <button class="option" onclick="checkMCQ('q8','B','C','La bonne réponse est <strong>Ces / se sont</strong>. &quot;Ces&quot; = démonstratif pluriel. &quot;Se sont présentés&quot; = verbe pronominal.')"><span class="option-letter">B</span> Ces / sont</button>
+        <button class="option" onclick="checkMCQ('q8','C','C','✅ Correct ! &quot;Ces candidats se sont présentés&quot; = bonne structure.')"><span class="option-letter">C</span> Ces / se sont</button>
+        <button class="option" onclick="checkMCQ('q8','D','C','La bonne réponse est <strong>Ces / se sont</strong>.')"><span class="option-letter">D</span> Ses / sont</button>
+      </div>
+      <div class="feedback" id="q8-fb"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exercise-type">🔤 Astuce — Homophones à retenir</div>
+    <table class="conj-table">
+      <tr><th>Mot</th><th>Usage</th><th>Exemple</th></tr>
+      <tr><td><strong>a</strong></td><td>verbe avoir</td><td>Il a travaillé.</td></tr>
+      <tr><td><strong>à</strong></td><td>préposition</td><td>Aller à Abidjan.</td></tr>
+      <tr><td><strong>ou</strong></td><td>choix</td><td>Lui ou moi.</td></tr>
+      <tr><td><strong>où</strong></td><td>lieu / question</td><td>Où es-tu ?</td></tr>
+      <tr><td><strong>ses</strong></td><td>possessif</td><td>Ses parents.</td></tr>
+      <tr><td><strong>ces</strong></td><td>démonstratif</td><td>Ces hommes.</td></tr>
+      <tr><td><strong>son</strong></td><td>possessif masc.</td><td>Son travail.</td></tr>
+      <tr><td><strong>sont</strong></td><td>verbe être</td><td>Ils sont prêts.</td></tr>
+    </table>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="btn btn-secondary" onclick="showModule(1)">← Retour</button>
+    <button class="btn btn-primary" style="width:auto;padding:12px 28px" onclick="showModule(3)">Suivant →</button>
+  </div>
+</div>
+
+<!-- ===================== MODULE 4 : REDACTION ===================== -->
+<div class="section" id="module-3">
+  <div class="card">
+    <div class="exercise-type">📝 Exercice 5 — Rédaction guidée</div>
+    <div class="exercise-title">Sujet de rédaction</div>
+    <div class="exercise-instruction">Rédigez un texte d'environ <strong>10 à 15 lignes</strong> sur le sujet suivant. Soyez clair, structuré et soigné.</div>
+
+    <div class="text-block" style="font-style:normal;font-size:15px;font-weight:600">
+      🖊️ "Pourquoi souhaitez-vous intégrer la Gendarmerie Nationale de Côte d'Ivoire ? Quelles qualités pensez-vous avoir pour ce métier ?"
+    </div>
+
+    <div class="exercise-instruction" style="margin-bottom:10px"><strong>Conseils de structure :</strong></div>
+    <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;margin-bottom:14px;font-size:13px;line-height:1.8;color:rgba(245,242,236,0.8)">
+      📌 <strong>Introduction</strong> : Présentez brièvement votre motivation.<br>
+      📌 <strong>Développement</strong> : Citez 2 ou 3 raisons précises + vos qualités.<br>
+      📌 <strong>Conclusion</strong> : Terminez par votre engagement et votre ambition.
+    </div>
+
+    <textarea id="redaction-text" placeholder="Écrivez votre rédaction ici...&#10;&#10;Exemple de début : « Depuis mon enfance, j'ai toujours admiré les hommes et femmes en uniforme qui veillent sur la sécurité de nos communautés... »"></textarea>
+    <button class="btn btn-primary" onclick="submitRedaction()">📤 Voir les critères de correction</button>
+    <div class="feedback" id="redaction-fb"></div>
+  </div>
+
+  <div class="card">
+    <div class="exercise-type">📝 Exercice 6 — Vocabulaire militaire</div>
+    <div class="exercise-title">Associez le mot à sa définition</div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">9</span> Que signifie "déférer un suspect" ?</div>
+      <div class="options" id="q9-opts">
+        <button class="option" onclick="checkMCQ('q9','A','B','<strong>Déférer</strong> signifie <em>présenter quelqu\'un devant une autorité judiciaire</em> (le parquet, le juge). Exemple : déférer un suspect au parquet.')"><span class="option-letter">A</span> Le libérer sans condition</button>
+        <button class="option" onclick="checkMCQ('q9','B','B','✅ Correct ! <strong>Déférer</strong> = présenter quelqu\'un devant une autorité judiciaire.')"><span class="option-letter">B</span> Le présenter devant une autorité judiciaire</button>
+        <button class="option" onclick="checkMCQ('q9','C','B','<strong>Déférer</strong> signifie présenter devant une autorité judiciaire, pas interroger.')"><span class="option-letter">C</span> L'interroger en garde à vue</button>
+        <button class="option" onclick="checkMCQ('q9','D','B','<strong>Déférer</strong> signifie présenter devant une autorité judiciaire.')"><span class="option-letter">D</span> Le surveiller à distance</button>
+      </div>
+      <div class="feedback" id="q9-fb"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">10</span> "Réquisition" signifie :</div>
+      <div class="options" id="q10-opts">
+        <button class="option" onclick="checkMCQ('q10','A','A','✅ Correct ! Une <strong>réquisition</strong> est une demande officielle et obligatoire faite par une autorité.')"><span class="option-letter">A</span> Une demande officielle obligatoire de l'autorité</button>
+        <button class="option" onclick="checkMCQ('q10','B','A','<strong>Réquisition</strong> est une demande officielle obligatoire, pas un rapport.')"><span class="option-letter">B</span> Un rapport de police</button>
+        <button class="option" onclick="checkMCQ('q10','C','A','<strong>Réquisition</strong> est une demande officielle obligatoire.')"><span class="option-letter">C</span> Une autorisation de sortie</button>
+        <button class="option" onclick="checkMCQ('q10','D','A','<strong>Réquisition</strong> est une demande officielle obligatoire.')"><span class="option-letter">D</span> Un grade militaire</button>
+      </div>
+      <div class="feedback" id="q10-fb"></div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="btn btn-secondary" onclick="showModule(2)">← Retour</button>
+    <button class="btn btn-primary" style="width:auto;padding:12px 28px" onclick="showModule(4)">Suivant →</button>
+  </div>
+</div>
+
+<!-- ===================== MODULE 5 : DICTÉE ===================== -->
+<div class="section" id="module-4">
+  <div class="card">
+    <div class="exercise-type">🎧 Exercice 7 — Dictée simulée</div>
+    <div class="exercise-title">Lisez, cachez, écrivez</div>
+    <div class="exercise-instruction">Lisez le texte ci-dessous <strong>3 fois attentivement</strong>. Cachez-le avec votre main ou un papier, puis recopiez-le de mémoire dans la zone de texte. Appuyez sur "Comparer" pour voir vos erreurs.</div>
+
+    <div id="dictee-text-visible">
+      <div class="text-block" id="dictee-passage" style="font-style:normal;line-height:2;">
+        Le gendarme est un serviteur de l'État, dévoué à la sécurité des citoyens. Chaque jour, il patrouille dans les villages et les quartiers pour prévenir les infractions et maintenir l'ordre public. Son uniforme inspire le respect, mais c'est son intégrité et son sens du devoir qui font sa véritable grandeur. Il agit avec rigueur, sans jamais transiger avec la loi.
+      </div>
+      <button class="btn btn-primary" onclick="hideDicteeText()" style="margin-top:0">🙈 Cacher le texte et commencer</button>
+    </div>
+
+    <div id="dictee-write-zone" style="display:none">
+      <div style="background:rgba(200,168,75,0.1);border:1px dashed var(--or);border-radius:8px;padding:12px;font-size:12px;color:var(--or);margin-bottom:12px;">
+        ⏱️ Le texte est caché. Écrivez ce dont vous vous souvenez ci-dessous.
+      </div>
+      <textarea id="dictee-answer" placeholder="Écrivez votre dictée ici..." style="min-height:140px"></textarea>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-secondary" onclick="showDicteeText()" style="flex:1">👁️ Revoir le texte</button>
+        <button class="btn btn-primary" onclick="checkDictee()" style="flex:1;margin-top:0">✅ Comparer</button>
+      </div>
+      <div class="feedback" id="dictee-fb"></div>
+    </div>
+
+    <div id="dictee-result" style="display:none;margin-top:14px">
+      <div class="exercise-type" style="margin-top:0">📋 Texte original (référence)</div>
+      <div class="text-block" style="font-style:normal">
+        Le gendarme est un serviteur de l'État, dévoué à la sécurité des citoyens. Chaque jour, il patrouille dans les villages et les quartiers pour prévenir les infractions et maintenir l'ordre public. Son uniforme inspire le respect, mais c'est son intégrité et son sens du devoir qui font sa véritable grandeur. Il agit avec rigueur, sans jamais transiger avec la loi.
+      </div>
+      <div class="exercise-type">📌 Mots pièges à retenir</div>
+      <table class="conj-table">
+        <tr><th>Mot</th><th>Explication</th></tr>
+        <tr><td><strong>dévoué</strong></td><td>Participe passé, accord avec "serviteur" (masc. sing.)</td></tr>
+        <tr><td><strong>patrouille</strong></td><td>Verbe du 1er groupe, présent : il patrouille</td></tr>
+        <tr><td><strong>infractions</strong></td><td>Féminin pluriel — pas d'accent sur le "i"</td></tr>
+        <tr><td><strong>intégrité</strong></td><td>Accent aigu sur les deux "é"</td></tr>
+        <tr><td><strong>transiger</strong></td><td>Verbe rare = "faire des compromis"</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exercise-type">🎧 Exercice 8 — Dictée 2 (phrases courtes)</div>
+    <div class="exercise-title">Complétez les phrases dictées</div>
+    <div class="exercise-instruction">Lisez chaque phrase, puis remplissez les mots manquants de mémoire.</div>
+
+    <div class="fill-blank">
+      1. La <input class="blank-input" id="d1" placeholder="..." data-answer="discipline" style="width:120px"> est la base du métier militaire. <span class="hint">(mot-clé : rigueur, règle)</span>
+    </div>
+    <div class="fill-blank">
+      2. Les <input class="blank-input" id="d2" placeholder="..." data-answer="citoyens" style="width:110px"> ont droit à la protection de l'État. <span class="hint">(habitants d'un pays)</span>
+    </div>
+    <div class="fill-blank">
+      3. Il faut agir avec <input class="blank-input" id="d3" placeholder="..." data-answer="impartialité" style="width:130px"> et sans favoritisme. <span class="hint">(être neutre, juste envers tous)</span>
+    </div>
+    <div class="fill-blank">
+      4. Le gendarme <input class="blank-input" id="d4" placeholder="..." data-answer="surveille" style="width:110px"> les axes routiers chaque nuit. <span class="hint">(verbe : observer, contrôler)</span>
+    </div>
+    <button class="btn btn-primary" onclick="checkDictee2()">✅ Vérifier</button>
+    <div class="feedback" id="dictee2-fb"></div>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="btn btn-secondary" onclick="showModule(3)">← Retour</button>
+    <button class="btn btn-primary" style="width:auto;padding:12px 28px" onclick="showModule(5)">Suivant →</button>
+  </div>
+</div>
+
+<!-- ===================== MODULE 6 : PONCTUATION ===================== -->
+<div class="section" id="module-5">
+  <div class="card">
+    <div class="exercise-type">🔡 Exercice 9 — Ponctuation</div>
+    <div class="exercise-title">Choisissez le bon signe de ponctuation</div>
+    <div class="exercise-instruction">La ponctuation est souvent notée à l'écrit. Choisissez le signe correct pour chaque phrase.</div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">P1</span> "Le gendarme a interpellé le suspect___ puis l'a conduit au poste."</div>
+      <div class="options" id="qp1-opts">
+        <button class="option" onclick="checkMCQ('qp1','A','A','✅ La <strong>virgule (,)</strong> est correcte ici pour séparer deux actions dans une même phrase.')"><span class="option-letter">A</span> , (virgule)</button>
+        <button class="option" onclick="checkMCQ('qp1','B','A','Non. Le <strong>point (.)</strong> terminerait la phrase trop tôt, coupant la continuité.')"><span class="option-letter">B</span> . (point)</button>
+        <button class="option" onclick="checkMCQ('qp1','C','A','Non. Le <strong>point d\'exclamation</strong> exprime une émotion forte, pas adapté ici.')"><span class="option-letter">C</span> ! (exclamation)</button>
+        <button class="option" onclick="checkMCQ('qp1','D','A','Non. Le <strong>point-virgule</strong> sépare deux phrases indépendantes complètes.')"><span class="option-letter">D</span> ; (point-virgule)</button>
+      </div>
+      <div class="feedback" id="qp1-fb"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">P2</span> "Où se trouve le commissariat___ Je dois y déposer une plainte."</div>
+      <div class="options" id="qp2-opts">
+        <button class="option" onclick="checkMCQ('qp2','A','B','Non. La virgule ne convient pas après une question directe.')"><span class="option-letter">A</span> , (virgule)</button>
+        <button class="option" onclick="checkMCQ('qp2','B','B','✅ Le <strong>point d\'interrogation (?)</strong> est obligatoire après une question directe.')"><span class="option-letter">B</span> ? (interrogation)</button>
+        <button class="option" onclick="checkMCQ('qp2','C','B','Non. Le point termine une affirmation, pas une question.')"><span class="option-letter">C</span> . (point)</button>
+        <button class="option" onclick="checkMCQ('qp2','D','B','Non. Les points de suspension marquent une hésitation ou une liste incomplète.')"><span class="option-letter">D</span> … (suspension)</button>
+      </div>
+      <div class="feedback" id="qp2-fb"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">P3</span> "Le rapport mentionne trois infractions___ vol, agression et faux documents."</div>
+      <div class="options" id="qp3-opts">
+        <button class="option" onclick="checkMCQ('qp3','A','C','Non. La virgule seule ne suffit pas pour introduire une liste après un terme général.')"><span class="option-letter">A</span> , (virgule)</button>
+        <button class="option" onclick="checkMCQ('qp3','B','C','Non. Le point terminerait la phrase, mais la liste qui suit fait partie de la même phrase.')"><span class="option-letter">B</span> . (point)</button>
+        <button class="option" onclick="checkMCQ('qp3','C','C','✅ Les <strong>deux-points (:)</strong> introduisent parfaitement une liste ou une explication.')"><span class="option-letter">C</span> : (deux-points)</button>
+        <button class="option" onclick="checkMCQ('qp3','D','C','Non. Le point d\'exclamation exprime une émotion, pas une liste.')"><span class="option-letter">D</span> ! (exclamation)</button>
+      </div>
+      <div class="feedback" id="qp3-fb"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">P4</span> Laquelle de ces phrases est correctement ponctuée ?</div>
+      <div class="options" id="qp4-opts">
+        <button class="option" onclick="checkMCQ('qp4','A','C','Non. Il manque une virgule entre les deux propositions.')"><span class="option-letter">A</span> Il a couru vite mais il est arrivé en retard.</button>
+        <button class="option" onclick="checkMCQ('qp4','B','C','Non. Le point d\'interrogation n\'est pas correct pour une affirmation.')"><span class="option-letter">B</span> Le candidat était nerveux? il a quand même réussi.</button>
+        <button class="option" onclick="checkMCQ('qp4','C','C','✅ Correct ! La virgule avant "mais" et le point final sont bien placés.')"><span class="option-letter">C</span> Il a couru vite, mais il est arrivé en retard.</button>
+        <button class="option" onclick="checkMCQ('qp4','D','C','Non. On ne met pas de virgule directement avant "et" dans ce contexte simple.')"><span class="option-letter">D</span> Il a couru, et vite, mais il est arrivé en retard.</button>
+      </div>
+      <div class="feedback" id="qp4-fb"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exercise-type">🔡 Exercice 10 — Remettez la ponctuation</div>
+    <div class="exercise-title">Ajoutez les signes manquants</div>
+    <div class="exercise-instruction">Lisez chaque phrase sans ponctuation. Choisissez la version correctement ponctuée.</div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-num">P5</span> Version sans ponctuation : <em>"le brigadier a convoqué les témoins interrogé les suspects et rédigé son rapport"</em></div>
+      <div class="options" id="qp5-opts">
+        <button class="option" onclick="checkMCQ('qp5','A','B','Non. Cette version manque de virgules entre les actions enchaînées.')"><span class="option-letter">A</span> Le brigadier a convoqué les témoins interrogé les suspects et rédigé son rapport.</button>
+        <button class="option" onclick="checkMCQ('qp5','B','B','✅ Correct ! Les virgules séparent bien chaque action de la liste.')"><span class="option-letter">B</span> Le brigadier a convoqué les témoins, interrogé les suspects et rédigé son rapport.</button>
+        <button class="option" onclick="checkMCQ('qp5','C','B','Non. Trop de virgules — on n\'en met pas avant le dernier "et" d\'une liste courte.')"><span class="option-letter">C</span> Le brigadier a convoqué les témoins, interrogé les suspects, et rédigé son rapport.</button>
+        <button class="option" onclick="checkMCQ('qp5','D','B','Non. Le point-virgule sépare des propositions indépendantes complètes, pas une liste d\'actions du même verbe.')"><span class="option-letter">D</span> Le brigadier a convoqué les témoins; interrogé les suspects; et rédigé son rapport.</button>
+      </div>
+      <div class="feedback" id="qp5-fb"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exercise-type">📌 Rappel — Règles de ponctuation</div>
+    <table class="conj-table">
+      <tr><th>Signe</th><th>Usage</th></tr>
+      <tr><td><strong>,</strong> Virgule</td><td>Sépare des éléments d'une liste ou deux propositions liées</td></tr>
+      <tr><td><strong>.</strong> Point</td><td>Termine une phrase affirmative ou négative</td></tr>
+      <tr><td><strong>?</strong> Interrogation</td><td>Termine une question directe</td></tr>
+      <tr><td><strong>!</strong> Exclamation</td><td>Exprime une émotion forte (ordre, surprise, joie)</td></tr>
+      <tr><td><strong>:</strong> Deux-points</td><td>Introduit une liste, une explication ou une citation</td></tr>
+      <tr><td><strong>;</strong> Point-virgule</td><td>Sépare deux phrases indépendantes mais liées</td></tr>
+      <tr><td><strong>…</strong> Suspension</td><td>Marque une hésitation, une liste incomplète</td></tr>
+    </table>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="btn btn-secondary" onclick="showModule(4)">← Retour</button>
+    <button class="btn btn-primary" style="width:auto;padding:12px 28px" onclick="showModule(6)">Voir mon score 🏆</button>
+  </div>
+</div>
+
+<!-- ===================== MODULE 7 : SCORE ===================== -->
+<div class="section" id="module-6">
+  <div class="score-box">
+    <div class="medal" id="score-medal">🎯</div>
+    <div class="score-num" id="score-num">0</div>
+    <div class="score-label">points sur 10</div>
+    <div class="score-msg" id="score-msg">Complétez les exercices pour voir votre score.</div>
+  </div>
+
+  <div class="card">
+    <div class="exercise-type">📊 Récapitulatif</div>
+    <div id="score-details" style="font-size:13px;line-height:2;color:rgba(245,242,236,0.8)">
+      Revenez ici après avoir fait tous les exercices.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="exercise-type">💡 Conseils pour le jour J</div>
+    <div style="font-size:13px;line-height:1.9;color:rgba(245,242,236,0.8)">
+      ✅ <strong>Lisez chaque texte 2 fois</strong> avant de répondre.<br>
+      ✅ <strong>Vérifiez les accords</strong> sujet-verbe et nom-adjectif.<br>
+      ✅ <strong>Soignez votre écriture</strong> — une copie propre donne bonne impression.<br>
+      ✅ <strong>Gérez votre temps</strong> : 1 min par question de QCM max.<br>
+      ✅ <strong>Ne laissez aucune question sans réponse</strong>.
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="btn btn-secondary" onclick="showModule(5)">← Retour</button>
+    <button class="btn btn-primary" style="width:auto;padding:12px 28px" onclick="resetAll()">🔄 Recommencer</button>
+  </div>
+</div>
+
+<script>
+  let score = 0;
+  let answered = {};
+  const totalQ = 10;
+
+  const modules = ['module-0','module-1','module-2','module-3','module-4','module-5','module-6'];
+  const progWidth = [15, 30, 45, 60, 75, 90, 100];
+  const progLabels = ['Module 1/6','Module 2/6','Module 3/6','Module 4/6','Module 5/6','Module 6/6','Résultats'];
+
+  function showModule(i) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(modules[i]).classList.add('active');
+    document.querySelectorAll('.mod-btn').forEach((b,j) => b.classList.toggle('active', j===i));
+    document.getElementById('progress-fill').style.width = progWidth[i] + '%';
+    document.getElementById('progress-label').textContent = progLabels[i];
+    if(i===6) updateScore();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function checkMCQ(qId, chosen, correct, explanation) {
+    if(answered[qId]) return;
+    answered[qId] = true;
+
+    const opts = document.querySelectorAll(`#${qId}-opts .option`);
+    const letters = ['A','B','C','D'];
+    opts.forEach((opt, i) => {
+      opt.classList.add('disabled');
+      opt.onclick = null;
+      if(letters[i] === correct) opt.classList.add('correct');
+      else if(letters[i] === chosen) opt.classList.add('wrong');
+    });
+
+    const fb = document.getElementById(`${qId}-fb`);
+    if(chosen === correct) {
+      score++;
+      fb.className = 'feedback correct-fb';
+      fb.innerHTML = '<strong>✅ Bonne réponse !</strong>' + (explanation ? ' ' + explanation : '');
+    } else {
+      fb.className = 'feedback wrong-fb';
+      fb.innerHTML = '<strong>❌ Mauvaise réponse.</strong> ' + (explanation || 'La bonne réponse est surlignée en vert.');
+    }
+    document.getElementById('score-display').textContent = `Score : ${score} pt`;
+  }
+
+  function hideDicteeText() {
+    document.getElementById('dictee-text-visible').style.display = 'none';
+    document.getElementById('dictee-write-zone').style.display = 'block';
+  }
+  function showDicteeText() {
+    document.getElementById('dictee-text-visible').style.display = 'block';
+    document.getElementById('dictee-write-zone').style.display = 'none';
+  }
+  function checkDictee() {
+    if(answered['dictee']) return;
+    const val = document.getElementById('dictee-answer').value.trim();
+    if(val.length < 30) {
+      const fb = document.getElementById('dictee-fb');
+      fb.className = 'feedback wrong-fb';
+      fb.innerHTML = '<strong>✏️ Écrivez davantage avant de comparer.</strong>';
+      return;
+    }
+    answered['dictee'] = true;
+    document.getElementById('dictee-result').style.display = 'block';
+    const fb = document.getElementById('dictee-fb');
+    fb.className = 'feedback info-fb';
+    // Count rough word matches
+    const original = "Le gendarme est un serviteur de l'État dévoué à la sécurité des citoyens Chaque jour il patrouille dans les villages et les quartiers pour prévenir les infractions et maintenir l'ordre public Son uniforme inspire le respect mais c'est son intégrité et son sens du devoir qui font sa véritable grandeur Il agit avec rigueur sans jamais transiger avec la loi".toLowerCase().split(/\s+/);
+    const written = val.toLowerCase().replace(/[.,!?;:]/g,'').split(/\s+/);
+    const matched = written.filter(w => original.includes(w)).length;
+    const pct = Math.min(100, Math.round((matched / original.length) * 100));
+    if(pct >= 80) { score++; }
+    fb.innerHTML = `<strong>📊 Environ ${pct}% des mots retrouvés.</strong><br>Comparez maintenant avec le texte original ci-dessous et corrigez vos fautes.`;
+    document.getElementById('score-display').textContent = `Score : ${score} pt`;
+  }
+
+  function checkDictee2() {
+    if(answered['dictee2']) return;
+    answered['dictee2'] = true;
+    const blanks = [
+      {id:'d1', answer:'discipline'},
+      {id:'d2', answer:'citoyens'},
+      {id:'d3', answer:'impartialité'},
+      {id:'d4', answer:'surveille'}
+    ];
+    let correct = 0;
+    blanks.forEach(b => {
+      const input = document.getElementById(b.id);
+      const val = input.value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+      const exp = b.answer.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+      if(val === exp || val === b.answer.toLowerCase()) {
+        input.classList.add('correct-input'); correct++;
+      } else {
+        input.classList.add('wrong-input');
+        input.value = b.answer;
+      }
+      input.disabled = true;
+    });
+    const fb = document.getElementById('dictee2-fb');
+    if(correct === 4) {
+      score += 2;
+      fb.className = 'feedback correct-fb';
+      fb.innerHTML = '<strong>✅ Excellent ! 4/4 — +2 points !</strong> Ton vocabulaire est solide.';
+    } else if(correct >= 2) {
+      score += 1;
+      fb.className = 'feedback info-fb';
+      fb.innerHTML = `<strong>🟡 ${correct}/4 bons mots.</strong> Revois les mots surlignés en rouge.`;
+    } else {
+      fb.className = 'feedback wrong-fb';
+      fb.innerHTML = `<strong>❌ ${correct}/4 bons mots.</strong> Mémorise bien le vocabulaire militaire et civique.`;
+    }
+    document.getElementById('score-display').textContent = `Score : ${score} pt`;
+  }
+
+
+    if(answered['blanks']) return;
+    answered['blanks'] = true;
+
+    const blanks = ['b1','b2','b3','b4','b5'];
+    let correct = 0;
+    blanks.forEach(id => {
+      const input = document.getElementById(id);
+      const val = input.value.trim().toLowerCase();
+      const expected = input.dataset.answer.toLowerCase();
+      if(val === expected) {
+        input.classList.add('correct-input');
+        correct++;
+      } else {
+        input.classList.add('wrong-input');
+        input.value = input.dataset.answer + ' ✗ (' + val + ')';
+      }
+      input.disabled = true;
+    });
+
+    const fb = document.getElementById('blanks-fb');
+    if(correct === 5) {
+      score += 2;
+      fb.className = 'feedback correct-fb';
+      fb.innerHTML = '<strong>✅ Parfait ! 5/5 bonnes réponses.</strong> +2 points bonus !';
+    } else if(correct >= 3) {
+      score += 1;
+      fb.className = 'feedback info-fb';
+      fb.innerHTML = `<strong>🟡 ${correct}/5 bonnes réponses.</strong> Revoyez les verbes incorrects.`;
+    } else {
+      fb.className = 'feedback wrong-fb';
+      fb.innerHTML = `<strong>❌ ${correct}/5 bonnes réponses.</strong> Révisez la conjugaison avec le tableau ci-dessous.`;
+    }
+    document.getElementById('score-display').textContent = `Score : ${score} pt`;
+  }
+
+  function submitRedaction() {
+    if(answered['redaction']) return;
+    answered['redaction'] = true;
+    const text = document.getElementById('redaction-text').value.trim();
+    const fb = document.getElementById('redaction-fb');
+    if(text.length < 50) {
+      fb.className = 'feedback wrong-fb';
+      fb.innerHTML = '<strong>✏️ Votre texte est trop court.</strong> Essayez d\'écrire au moins 8 à 10 lignes.';
+      answered['redaction'] = false;
+      return;
+    }
+    fb.className = 'feedback info-fb';
+    fb.innerHTML = `
+      <strong>📋 Critères de correction :</strong><br><br>
+      ☑ <strong>Structure</strong> : Introduction, développement, conclusion présents ?<br>
+      ☑ <strong>Contenu</strong> : Avez-vous cité des raisons précises (sécurité, service, discipline) ?<br>
+      ☑ <strong>Qualités</strong> : Avez-vous mentionné discipline, courage, honnêteté, sens du devoir ?<br>
+      ☑ <strong>Langue</strong> : Phrases claires, sans fautes d'orthographe ni de grammaire ?<br>
+      ☑ <strong>Longueur</strong> : Entre 10 et 15 lignes, c'est idéal.<br><br>
+      💡 <em>Relisez votre texte et corrigez les fautes avant de rendre votre copie.</em>
+    `;
+  }
+
+  function updateScore() {
+    const s = Math.min(score, 15);
+    document.getElementById('score-num').textContent = s;
+    let medal, msg;
+    if(s >= 13) { medal = '🥇'; msg = 'Excellent ! Tu es prêt pour le concours !'; }
+    else if(s >= 10) { medal = '🥈'; msg = 'Très bon résultat ! Continue l\'entraînement.'; }
+    else if(s >= 7) { medal = '🥉'; msg = 'Bien, mais il faut encore réviser certains points.'; }
+    else { medal = '📚'; msg = 'Continue à travailler, la réussite demande de la persévérance.'; }
+    document.getElementById('score-medal').textContent = medal;
+    document.getElementById('score-msg').textContent = msg;
+
+    const details = document.getElementById('score-details');
+    details.innerHTML = `
+      <strong>Score :</strong> ${score} / 15 points<br><br>
+      <span style="color:var(--or)">📌 Points à améliorer :</span><br>
+      ${!answered.q1||!answered.q2||!answered.q3 ? '• Compréhension de texte<br>':'' }
+      ${!answered.blanks ? '• Conjugaison des verbes<br>':'' }
+      ${!answered.q6||!answered.q7||!answered.q8 ? '• Orthographe et homophones<br>':'' }
+      ${!answered.q9||!answered.q10 ? '• Vocabulaire<br>':'' }
+      ${!answered.dictee||!answered.dictee2 ? '• Dictée et mémoire des mots<br>':'' }
+      ${!answered.qp1||!answered.qp2||!answered.qp3||!answered.qp4||!answered.qp5 ? '• Ponctuation<br>':'' }
+    `;
+    document.getElementById('score-label').textContent = 'points sur 15';
+  }
+
+  function resetAll() {
+    score = 0;
+    answered = {};
+    document.getElementById('score-display').textContent = 'Score : 0 pt';
+    // Reset options
+    document.querySelectorAll('.option').forEach(o => {
+      o.classList.remove('correct','wrong','disabled');
+    });
+    document.querySelectorAll('.feedback').forEach(f => {
+      f.className = 'feedback';
+      f.innerHTML = '';
+    });
+    document.querySelectorAll('.blank-input').forEach(i => {
+      i.value = '';
+      i.classList.remove('correct-input','wrong-input');
+      i.disabled = false;
+    });
+    document.getElementById('redaction-text').value = '';
+    // Reset dictée
+    document.getElementById('dictee-text-visible').style.display = 'block';
+    document.getElementById('dictee-write-zone').style.display = 'none';
+    document.getElementById('dictee-result').style.display = 'none';
+    document.getElementById('dictee-answer').value = '';
+    ['d1','d2','d3','d4'].forEach(id => {
+      const el = document.getElementById(id);
+      el.value = ''; el.disabled = false;
+      el.classList.remove('correct-input','wrong-input');
+    });
+
+    // Restore onclick for MCQ buttons
+    document.querySelector('#q1-opts').innerHTML = `
+      <button class="option" onclick="checkMCQ('q1', 'A', 'B')"><span class="option-letter">A</span> En zones urbaines seulement</button>
+      <button class="option" onclick="checkMCQ('q1', 'B', 'B')"><span class="option-letter">B</span> En zones rurales et périurbaines</button>
+      <button class="option" onclick="checkMCQ('q1', 'C', 'B')"><span class="option-letter">C</span> Dans la capitale uniquement</button>
+      <button class="option" onclick="checkMCQ('q1', 'D', 'B')"><span class="option-letter">D</span> Sur les côtes maritimes</button>`;
+    document.querySelector('#q2-opts').innerHTML = `
+      <button class="option" onclick="checkMCQ('q2', 'A', 'C')"><span class="option-letter">A</span> Surveiller les frontières</button>
+      <button class="option" onclick="checkMCQ('q2', 'B', 'C')"><span class="option-letter">B</span> Maintenir l'ordre public</button>
+      <button class="option" onclick="checkMCQ('q2', 'C', 'C')"><span class="option-letter">C</span> Enquêter sur les crimes et les délits</button>
+      <button class="option" onclick="checkMCQ('q2', 'D', 'C')"><span class="option-letter">D</span> Former les recrues militaires</button>`;
+    document.querySelector('#q3-opts').innerHTML = `
+      <button class="option" onclick="checkMCQ('q3', 'A', 'D')"><span class="option-letter">A</span> Judiciaire</button>
+      <button class="option" onclick="checkMCQ('q3', 'B', 'D')"><span class="option-letter">B</span> Administrative</button>
+      <button class="option" onclick="checkMCQ('q3', 'C', 'D')"><span class="option-letter">C</span> Périurbaine</button>
+      <button class="option" onclick="checkMCQ('q3', 'D', 'D')"><span class="option-letter">D</span> Exigeant</button>`;
+
+    const expl4 = 'Le mot &quot;prêt&quot; s\'accorde avec le sujet féminin pluriel <strong>&quot;recrues&quot;</strong> → prêtes.';
+    document.querySelector('#q4-opts').innerHTML = `
+      <button class="option" onclick="checkMCQ('q4','A','B','${expl4}')"><span class="option-letter">A</span> prêt</button>
+      <button class="option" onclick="checkMCQ('q4','B','B','${expl4}')"><span class="option-letter">B</span> prêtes</button>
+      <button class="option" onclick="checkMCQ('q4','C','B','${expl4}')"><span class="option-letter">C</span> prêts</button>
+      <button class="option" onclick="checkMCQ('q4','D','B','${expl4}')"><span class="option-letter">D</span> prête</button>`;
+    const expl5 = '<strong>Bien fait</strong> est correct. &quot;Fait&quot; s\'accorde avec &quot;travail&quot; (masculin singulier).';
+    document.querySelector('#q5-opts').innerHTML = `
+      <button class="option" onclick="checkMCQ('q5','A','A','${expl5}')"><span class="option-letter">A</span> bien fait</button>
+      <button class="option" onclick="checkMCQ('q5','B','A','${expl5}')"><span class="option-letter">B</span> bien faite</button>
+      <button class="option" onclick="checkMCQ('q5','C','A','${expl5}')"><span class="option-letter">C</span> bien faits</button>
+      <button class="option" onclick="checkMCQ('q5','D','A','${expl5}')"><span class="option-letter">D</span> bien faites</button>`;
+
+    // Reset ponctuation MCQ
+    ['qp1','qp2','qp3','qp4','qp5'].forEach(id => {
+      const opts = document.querySelectorAll(`#${id}-opts .option`);
+      opts.forEach(o => { o.classList.remove('correct','wrong','disabled'); });
+    });
+
+    showModule(0);
+  }
+</script>
+</body>
+</html>
